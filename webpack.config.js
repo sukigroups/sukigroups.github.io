@@ -17,7 +17,7 @@ module.exports = [
             ]
         },
         output: {
-            filename: './public/js/[name].min.[fullhash].js',
+            filename: './assets/js/[name].min.[fullhash].js',
             path: path.resolve(__dirname)
         },
         module: {
@@ -38,7 +38,7 @@ module.exports = [
                     test: /\.(woff|woff2|eot|ttf|otf)$/,
                     type: 'asset/resource',
                     generator: {
-                        filename: './public/font/[name][ext]',
+                        filename: './assets/font/[name][ext]',
                     }
                 },
                 // loader for images and icons (only required if css references image files)
@@ -46,7 +46,7 @@ module.exports = [
                     test: /\.(png|jpg|gif)$/,
                     type: 'asset/resource',
                     generator: {
-                        filename: './public/img/[name][ext]',
+                        filename: './assets/img/[name][ext]',
                     }
                 },
             ]
@@ -55,13 +55,13 @@ module.exports = [
             // clear out build directories on each build
             new CleanWebpackPlugin({
                 cleanOnceBeforeBuildPatterns: [
-                './public/js/*',
-                './public/css/*'
+                './assets/js/*',
+                './assets/css/*'
                 ]
             }),
             // css extraction into dedicated file
             new MiniCssExtractPlugin({
-                filename: './public/css/main.min.[fullhash].css'
+                filename: './assets/css/main.min.[fullhash].css'
             }),
         ],
         optimization: {
@@ -73,5 +73,11 @@ module.exports = [
                 new CssMinimizerPlugin(),
             ]
         },
+        devServer: {
+            static: {
+                directory: path.join(__dirname, ''),
+            },
+            compress: true
+        }
     }
 ];
